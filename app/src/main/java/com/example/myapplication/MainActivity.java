@@ -14,14 +14,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button b1, b2;
+        Button b1, b2, b3;
         b1 = findViewById(R.id.btn1);
         b2 = findViewById(R.id.btn2);
+        b3 = findViewById(R.id.btn3);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intt = new Intent(MainActivity.this,MainActivity2.class);
+                Intent intt = new Intent(MainActivity.this, MainActivity2.class);
+
+                String message =  "Hassan"; //editText.getText().toString();
+                intt.putExtra("key", 756);
+                intt.putExtra("abc", "BITF19A001");
                 startActivity(intt);
             }
         });
@@ -36,5 +41,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                composeEmail("bitf19a001@gmail.com", "Hellow World");
+            }
+        });
+
+
+
     }
+
+
+    public void composeEmail(String address, String subject) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_EMAIL, address);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+
+    }
+
 }
